@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Anti-India Campaign Detection System | National Security Platform</title>
+    <meta name="description" content="Advanced AI-powered platform for detecting and analyzing anti-India propaganda campaigns across digital platforms">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    <link rel="preload" href="styles.css" as="style">
+    
+    <!-- Stylesheets -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Security headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline';">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="loading-screen">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Initializing Security Platform...</p>
+            </div>
+        </div>
+        
+        <!-- Navigation Header -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <span class="shield-icon">🛡️</span>
+                    <h1>Anti-India Campaign Detector</h1>
+                    <span class="nav-subtitle">National Security Intelligence Platform</span>
+                </div>
+                <div class="nav-controls">
+                    <div class="status-indicator" id="system-status">
+                        <span class="status-dot online"></span>
+                        <span>System Online</span>
+                    </div>
+                    <button class="nav-button" id="real-time-toggle">
+                        <span class="icon">📡</span>
+                        Real-time Monitoring
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Dashboard -->
+        <main class="main-content">
+            <!-- Alert Banner -->
+            <div id="alert-banner" class="alert-banner hidden">
+                <div class="alert-content">
+                    <span class="alert-icon">⚠️</span>
+                    <span class="alert-message">High-risk campaign detected</span>
+                    <button class="alert-close" onclick="hideAlert()">×</button>
+                </div>
+            </div>
+            
+            <!-- Control Panel -->
+            <section class="control-panel">
+                <div class="panel-header">
+                    <h2>Content Analysis Center</h2>
+                    <p>Advanced AI-powered detection of anti-India propaganda and misinformation campaigns</p>
+                </div>
+                
+                <div class="analysis-form">
+                    <div class="input-section">
+                        <div class="form-group">
+                            <label for="content-input">Content for Analysis</label>
+                            <textarea 
+                                id="content-input" 
+                                placeholder="Enter social media post, article content, or any text for analysis..."
+                                rows="4"
+                                maxlength="5000"
+                            ></textarea>
+                            <div class="char-counter">
+                                <span id="char-count">0</span>/5000 characters
+                            </div>
+                        </div>
+                        
+                        <div class="metadata-section">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="platform-select">Platform</label>
+                                    <select id="platform-select">
+                                        <option value="">Select Platform</option>
+                                        <option value="twitter">Twitter/X</option>
+                                        <option value="facebook">Facebook</option>
+                                        <option value="youtube">YouTube</option>
+                                        <option value="telegram">Telegram</option>
+                                        <option value="instagram">Instagram</option>
+                                        <option value="reddit">Reddit</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="user-id-input">User ID (Optional)</label>
+                                    <input type="text" id="user-id-input" placeholder="@username or user identifier">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="hashtags-input">Hashtags (Optional)</label>
+                                <input type="text" id="hashtags-input" placeholder="#hashtag1 #hashtag2 #hashtag3">
+                                <small>Separate multiple hashtags with spaces</small>
+                            </div>
+                        </div>
+                        
+                        <div class="action-buttons">
+                            <button id="analyze-btn" class="primary-button">
+                                <span class="button-icon">🔍</span>
+                                Analyze Content
+                            </button>
+                            <button id="batch-analyze-btn" class="secondary-button">
+                                <span class="button-icon">📊</span>
+                                Batch Analysis
+                            </button>
+                            <button id="clear-btn" class="tertiary-button">Clear</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Results Section -->
+            <section id="results-section" class="results-section hidden">
+                <div class="results-header">
+                    <h3>Analysis Results</h3>
+                    <div class="results-actions">
+                        <button id="export-results" class="action-button">
+                            <span class="icon">💾</span>Export
+                        </button>
+                        <button id="share-results" class="action-button">
+                            <span class="icon">🔗</span>Share
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="analysis-results" class="analysis-results">
+                    <!-- Results will be populated by JavaScript -->
+                </div>
+            </section>
+            
+            <!-- Dashboard Overview -->
+            <section class="dashboard-overview">
+                <div class="dashboard-header">
+                    <h3>Security Dashboard</h3>
+                    <div class="dashboard-controls">
+                        <select id="timeframe-select">
+                            <option value="1h">Last Hour</option>
+                            <option value="24h" selected>Last 24 Hours</option>
+                            <option value="7d">Last 7 Days</option>
+                        </select>
+                        <select id="platform-filter">
+                            <option value="all">All Platforms</option>
+                            <option value="twitter">Twitter</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="youtube">YouTube</option>
+                            <option value="telegram">Telegram</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <h4>Total Analyses</h4>
+                            <span class="metric-icon">📈</span>
+                        </div>
+                        <div class="metric-value" id="total-analyses">-</div>
+                        <div class="metric-change positive">+12% from yesterday</div>
+                    </div>
+                    
+                    <div class="metric-card risk-high">
+                        <div class="metric-header">
+                            <h4>High Risk Detected</h4>
+                            <span class="metric-icon">🚨</span>
+                        </div>
+                        <div class="metric-value" id="high-risk-count">-</div>
+                        <div class="metric-change" id="high-risk-change">-</div>
+                    </div>
+                    
+                    <div class="metric-card risk-medium">
+                        <div class="metric-header">
+                            <h4>Medium Risk</h4>
+                            <span class="metric-icon">⚠️</span>
+                        </div>
+                        <div class="metric-value" id="medium-risk-count">-</div>
+                        <div class="metric-change" id="medium-risk-change">-</div>
+                    </div>
+                    
+                    <div class="metric-card risk-low">
+                        <div class="metric-header">
+                            <h4>Low Risk</h4>
+                            <span class="metric-icon">⚡</span>
+                        </div>
+                        <div class="metric-value" id="low-risk-count">-</div>
+                        <div class="metric-change" id="low-risk-change">-</div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-panels">
+                    <div class="panel recent-detections">
+                        <div class="panel-header">
+                            <h4>Recent Detections</h4>
+                            <button class="refresh-button" id="refresh-detections">🔄</button>
+                        </div>
+                        <div class="detections-list" id="recent-detections">
+                            <div class="loading-placeholder">Loading recent detections...</div>
+                        </div>
+                    </div>
+                    
+                    <div class="panel platform-distribution">
+                        <div class="panel-header">
+                            <h4>Platform Distribution</h4>
+                        </div>
+                        <div class="platform-stats" id="platform-stats">
+                            <div class="loading-placeholder">Loading platform statistics...</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Network Analysis Section -->
+            <section class="network-analysis">
+                <div class="section-header">
+                    <h3>Network Analysis</h3>
+                    <p>Coordinated campaign detection and bot network identification</p>
+                </div>
+                
+                <div class="network-grid">
+                    <div class="network-card">
+                        <h4>Suspicious Networks</h4>
+                        <div id="suspicious-networks" class="network-content">
+                            <div class="loading-placeholder">Analyzing network patterns...</div>
+                        </div>
+                    </div>
+                    
+                    <div class="network-card">
+                        <h4>Coordinated Campaigns</h4>
+                        <div id="coordinated-campaigns" class="network-content">
+                            <div class="loading-placeholder">Detecting coordinated activities...</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Notification Toast -->
+        <div id="toast-container" class="toast-container">
+            <!-- Toasts will be dynamically added here -->
+        </div>
+        
+        <!-- Modal for Batch Analysis -->
+        <div id="batch-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Batch Content Analysis</h3>
+                    <button class="modal-close" onclick="closeBatchModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="file-upload-section">
+                        <div class="upload-area" id="file-upload-area">
+                            <div class="upload-icon">📁</div>
+                            <p>Drop CSV/JSON files here or click to browse</p>
+                            <input type="file" id="batch-file-input" accept=".csv,.json,.txt" multiple>
+                        </div>
+                        <div class="upload-info">
+                            <p>Supported formats: CSV, JSON, TXT (max 10MB per file)</p>
+                        </div>
+                    </div>
+                    <div class="batch-progress hidden" id="batch-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <p class="progress-text">Processing files... <span id="progress-percentage">0%</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
